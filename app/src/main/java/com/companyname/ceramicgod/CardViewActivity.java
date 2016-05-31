@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,11 +32,26 @@ public class CardViewActivity extends AppCompatActivity {
             public void bindView(View view, Context context, Cursor cursor) {
                 TextView name = (TextView) view.findViewById(R.id.name);
                 String nameText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
-                name.setText(nameText);
+                name.setText("Name: " + nameText);
 
                 TextView rating = (TextView) view.findViewById(R.id.rating);
                 String ratingText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_RATING));
-                rating.setText(ratingText);
+                rating.setText("Rating: " + ratingText);
+
+                TextView date = (TextView) view.findViewById(R.id.date);
+                String dateText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
+                date.setText("Date: " + dateText);
+
+                TextView comments = (TextView) view.findViewById(R.id.comments);
+                String commentsText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_COMMENTS));
+                comments.setText("Comments: " + commentsText);
+
+                TextView address = (TextView) view.findViewById(R.id.address);
+                String addressText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ADDRESS));
+                address.setText("Address: " + addressText);
+
+                ImageView image = (ImageView) view.findViewById(R.id.image);
+                image.setImageResource(R.mipmap.ic_launcher);
             }
         };
 
