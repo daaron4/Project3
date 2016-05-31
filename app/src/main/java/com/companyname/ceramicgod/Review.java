@@ -6,14 +6,14 @@ package com.companyname.ceramicgod;
 public class Review {
 
     private String name;
-    private int rating;
+    private float rating;
     private String date;
     private String commments;
     private float latitude;
     private float longitude;
     private String picture;
 
-    public Review(String name, int rating, String date, String commments, float latitude, float longitude, String picture) {
+    public Review(String name, float rating, String date, String commments, float latitude, float longitude, String picture) {
         this.name = name;
         this.rating = rating;
         this.date = date;
@@ -31,11 +31,11 @@ public class Review {
         this.name = name;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

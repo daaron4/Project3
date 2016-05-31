@@ -36,7 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "(" +
                     COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COL_NAME + " TEXT, " +
-                    COL_RATING + " INTEGER, " +
+                    COL_RATING + " REAL, " +
                     COL_DATE + " TEXT, " +
                     COL_COMMENTS + " TEXT, " +
                     COL_LATITUDE + " REAL, " +
@@ -73,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(COL_NAME, "GA");
-        values.put(COL_RATING, 1);
+        values.put(COL_RATING, 1.3f);
         values.put(COL_DATE, "5/4/16");
         values.put(COL_COMMENTS, "Second floor bathroom is handicap accessible, however " +
                 "you have to go up stairs to get there...");
@@ -84,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values = new ContentValues();
         values.put(COL_NAME, "The Craftsman");
-        values.put(COL_RATING, 3);
+        values.put(COL_RATING, 2.7f);
         values.put(COL_DATE, "5/31/16");
         values.put(COL_COMMENTS, "Average bathroom, not very exciting, kinds gross at times");
         values.put(COL_LATITUDE, 34.013235);
@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values = new ContentValues();
         values.put(COL_NAME, "Santa Monica");
-        values.put(COL_RATING, 2);
+        values.put(COL_RATING, 2f);
         values.put(COL_DATE, "1/1/1");
         values.put(COL_COMMENTS, "Crowded, smelly, fartz");
         values.put(COL_LATITUDE, 34.02);
@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values = new ContentValues();
         values.put(COL_NAME, "My bathroom");
-        values.put(COL_RATING, 4);
+        values.put(COL_RATING, 4.5f);
         values.put(COL_DATE, "10/10/10");
         values.put(COL_COMMENTS, "Okay... at times...");
         values.put(COL_LATITUDE, 34.01);

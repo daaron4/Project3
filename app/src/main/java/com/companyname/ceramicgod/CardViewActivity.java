@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 public class CardViewActivity extends AppCompatActivity {
@@ -30,28 +31,17 @@ public class CardViewActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
+                ImageView image = (ImageView) view.findViewById(R.id.image);
+                image.setImageResource(R.mipmap.ic_launcher);
+
                 TextView name = (TextView) view.findViewById(R.id.name);
                 String nameText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
                 name.setText("Name: " + nameText);
 
-                TextView rating = (TextView) view.findViewById(R.id.rating);
-                String ratingText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_RATING));
-                rating.setText("Rating: " + ratingText);
+                RatingBar rating = (RatingBar) view.findViewById(R.id.rating);
+                float ratingNumber = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COL_RATING));
+                rating.setRating(ratingNumber);
 
-                TextView date = (TextView) view.findViewById(R.id.date);
-                String dateText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_DATE));
-                date.setText("Date: " + dateText);
-
-                TextView comments = (TextView) view.findViewById(R.id.comments);
-                String commentsText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_COMMENTS));
-                comments.setText("Comments: " + commentsText);
-
-                TextView address = (TextView) view.findViewById(R.id.address);
-                String addressText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_ADDRESS));
-                address.setText("Address: " + addressText);
-
-                ImageView image = (ImageView) view.findViewById(R.id.image);
-                image.setImageResource(R.mipmap.ic_launcher);
             }
         };
 
