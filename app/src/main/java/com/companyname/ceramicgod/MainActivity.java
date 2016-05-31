@@ -23,4 +23,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(mainIntent);
     }
 
+    public void addReview(View view) {
+        Intent reviewIntent = new Intent(MainActivity.this, NewReviewActivity.class);
+        startActivity(reviewIntent);
+    }
+
 }
