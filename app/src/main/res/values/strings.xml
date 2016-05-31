@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CeramicGod</string>
+    <string name="maps_button_text">Click for Maps</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
