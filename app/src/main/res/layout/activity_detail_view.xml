@@ -7,17 +7,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.companyname.ceramicgod.MainActivity">
+    tools:context=".DetailView">
 
-    <Button
-        android:id="@+id/detail_view_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Photo View"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="sendDetailView"
-        style="?android:attr/borderlessButtonStyle"/>
+    <ImageView
+        android:id="@+id/detail_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        />
 
+    <TextView
+        android:id="@+id/detail_text_view"
+        android:layout_width="match_parent"
+        android:paddingTop="10dp"
+        android:layout_height="200dp"
+        android:textSize="16sp"
+        android:layout_below="@+id/detail_image_view"/>
 
 </RelativeLayout>
