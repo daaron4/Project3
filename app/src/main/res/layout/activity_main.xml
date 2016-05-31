@@ -9,14 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.companyname.ceramicgod.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
     <Button
         android:id="@+id/mapTestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/maps_test_button_margin"
+        android:onClick="mapButtonClicked"
         android:text="@string/maps_button_text" />
+
 </RelativeLayout>
