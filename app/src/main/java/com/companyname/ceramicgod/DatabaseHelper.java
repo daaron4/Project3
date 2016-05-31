@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = DatabaseHelper.class.getCanonicalName();
 
@@ -67,13 +71,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void loadDummyData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
+
         values.put(COL_NAME, "GA");
         values.put(COL_RATING, 1);
         values.put(COL_DATE, "5/4/16");
         values.put(COL_COMMENTS, "Second floor bathroom is handicap accessible, however " +
                 "you have to go up stairs to get there...");
-        values.put(COL_LATITUDE, 9001);
-        values.put(COL_LONGITUDE, 8999);
+        values.put(COL_LATITUDE, 34.012982);
+        values.put(COL_LONGITUDE, -118.495196);
         values.put(COL_ADDRESS, "123 GA way");
         db.insert(REVIEWS_TABLE, null, values);
 
@@ -82,18 +87,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_RATING, 3);
         values.put(COL_DATE, "5/31/16");
         values.put(COL_COMMENTS, "Average bathroom, not very exciting, kinds gross at times");
-        values.put(COL_LATITUDE, -102);
-        values.put(COL_LONGITUDE, 123.456);
+        values.put(COL_LATITUDE, 34.013235);
+        values.put(COL_LONGITUDE, -118.496131);
         values.put(COL_ADDRESS, "456 craftsman st");
         db.insert(REVIEWS_TABLE, null, values);
 
         values = new ContentValues();
-        values.put(COL_NAME, "Santa Monica Pier");
+        values.put(COL_NAME, "Santa Monica");
         values.put(COL_RATING, 2);
         values.put(COL_DATE, "1/1/1");
         values.put(COL_COMMENTS, "Crowded, smelly, fartz");
-        values.put(COL_LATITUDE, 345);
-        values.put(COL_LONGITUDE, -9.007);
+        values.put(COL_LATITUDE, 34.02);
+        values.put(COL_LONGITUDE, -118.49);
         values.put(COL_ADDRESS, "1 e pier blvd");
         db.insert(REVIEWS_TABLE, null, values);
 
@@ -102,8 +107,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_RATING, 4);
         values.put(COL_DATE, "10/10/10");
         values.put(COL_COMMENTS, "Okay... at times...");
-        values.put(COL_LATITUDE, 345.789);
-        values.put(COL_LONGITUDE, 9.001);
+        values.put(COL_LATITUDE, 34.01);
+        values.put(COL_LONGITUDE, -118.40);
         values.put(COL_ADDRESS, "058 farting rd");
         db.insert(REVIEWS_TABLE, null, values);
     }

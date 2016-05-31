@@ -1,5 +1,6 @@
 package com.companyname.ceramicgod;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -42,14 +43,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng inglewood = new LatLng(34.01,-118.40);
+        Cursor cursor = DatabaseHelper.getInstance(MapsActivity.this).getAllReviews();
+        while (cursor.moveToNext()) {
+            float lat = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE));
+            float lon = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE));
+            LatLng current = new LatLng(lat, lon);
+            mMap.addMarker(new MarkerOptions().position(current));
+        }
+
+        // ToDo: change santaMonica to user's current location:
         LatLng santaMonica = new LatLng(34.02, -118.49);
-        LatLng craftsman = new LatLng(34.013235, -118.496131);
-        LatLng gA = new LatLng(34.012982, -118.495196);
-        mMap.addMarker(new MarkerOptions().position(santaMonica).title("Marker at Santa Monica"));
-        mMap.addMarker(new MarkerOptions().position(inglewood).title("Marker at Inglewood"));
-        mMap.addMarker(new MarkerOptions().position(craftsman).title("Marker at Craftsman"));
-        mMap.addMarker(new MarkerOptions().position(gA).title("Marker at GA"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(santaMonica));
 
         //Gives the default view of the map to a closer location.
@@ -66,5 +69,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MapFragment.newInstance(new GoogleMapOptions().camera(cameraPosition));
     }
 
-    //TODO Add to database.
 }
