@@ -13,8 +13,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Move to card view activity"
-        android:onClick="clickedCardViewActivity"/>
+        android:onClick="clickedCardViewActivity"
+        android:text="Move to card view activity" />
+
     <Button
         android:id="@+id/mapTestButton"
         android:layout_width="wrap_content"
@@ -28,4 +29,13 @@
         android:layout_height="wrap_content"
         android:onClick="addReview"/>
 
+    <Button
+        android:id="@+id/detailViewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mapTestButton"
+        android:onClick="detailViewButtonClicked"
+        android:text="@string/detail_view_button_text" />
+
 </LinearLayout>
+

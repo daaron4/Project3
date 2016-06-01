@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewReviewActivity"></activity>
+        <activity android:name=".DetailView"></activity>
+
     </application>
 
 </manifest>
