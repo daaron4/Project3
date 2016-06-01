@@ -17,12 +17,16 @@ public class ToiletView extends AppCompatActivity implements PhotoCallback {
 
         mToiletView = (ImageView) findViewById(R.id.toilet_image_view);
         Flickr.getInstance(ToiletView.this).doRequest();
+
+        mToiletView = (ImageView) findViewById(R.id.toilet_sign_image_view);
+        Flickr.getInstance(ToiletView.this).doRequest();
     }
 
     @Override
     public void handleCallback(String response) {
         Picasso.with(this)
                 .load(response)
+                .centerCrop()
                 .into(mToiletView);
     }
 

@@ -12,15 +12,12 @@
     <ImageView
         android:id="@+id/toilet_image_view"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        />
+        android:layout_height="250dp"/>
 
-    <TextView
-        android:id="@+id/toilet_text_view"
+    <ImageView
+        android:id="@+id/toilet_sign_image_view"
         android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:layout_height="200dp"
-        android:textSize="16sp"
+        android:layout_height="250dp"
         android:layout_below="@+id/toilet_image_view"/>
 
 </RelativeLayout>
