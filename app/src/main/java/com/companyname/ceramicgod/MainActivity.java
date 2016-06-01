@@ -23,4 +23,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(mainIntent);
     }
 
+    public void detailViewButtonClicked(View view) {
+        Intent detailViewActivityIntent = new Intent(MainActivity.this, DetailView.class);
+        startActivity(detailViewActivityIntent);
+    }
 }

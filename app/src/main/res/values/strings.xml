@@ -3,4 +3,15 @@
     <string name="maps_button_text">Click for Maps</string>
     <string name="title_activity_maps">Map</string>
     <string name="maps_manifest_name">Map</string>
+    <string name="detail_view_button_text">DetailView</string>
+    <string name="textview_detailview">Name of Place.</string>
+    <string name="comments_text">
+        Comments comments comments comments
+        comments comments comments comments
+        comments comments comments comments
+        comments comments comments comments
+        comments comments comments comments
+    </string>
+    <string name="sample_address">Address Main St. USA</string>
+    <string name="favorite_text">Favorite</string>
 </resources>

@@ -3,4 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="maps_test_button_margin">50dp</dimen>
+    <dimen name="image_view_layout">280dp</dimen>
+    <dimen name="image_view_margin_top">20dp</dimen>
+    <dimen name="rating_bar_margin_top">10dp</dimen>
 </resources>
