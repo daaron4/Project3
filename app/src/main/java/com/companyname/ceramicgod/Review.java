@@ -11,16 +11,16 @@ public class Review {
     private String comments;
     private float latitude;
     private float longitude;
-    private byte[] picture;
+    private String filePath;
 
-    public Review(String name, float rating, String date, String comments, float latitude, float longitude, byte[] picture) {
+    public Review(String name, float rating, String date, String comments, float latitude, float longitude, String filePath) {
         this.name = name;
         this.rating = rating;
         this.date = date;
         this.comments = comments;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.picture = picture;
+        this.filePath = filePath;
     }
 
     public String getName() {
@@ -71,11 +71,11 @@ public class Review {
         this.longitude = longitude;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

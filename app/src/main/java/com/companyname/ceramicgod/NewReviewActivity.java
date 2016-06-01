@@ -34,7 +34,6 @@ public class NewReviewActivity extends AppCompatActivity {
     private ImageView userPicture;
 
     private String mCurrentPhotoPath;
-    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +71,8 @@ public class NewReviewActivity extends AppCompatActivity {
         // ToDo: add check for no picture:
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            int bytes = bitmap.getByteCount();
-            ByteBuffer buffer = ByteBuffer.allocate(bytes);
-            bitmap.copyPixelsToBuffer(buffer);
-            byte[] byteArray = buffer.array();
             Review newReview = new Review(locationName.getText().toString(), ratingBar.getRating(),
-                    userComments.getText().toString(), date, 0f,0f, byteArray);
+                    userComments.getText().toString(), date, 0f,0f, mCurrentPhotoPath);
             DatabaseHelper.getInstance(NewReviewActivity.this).insertReview(newReview);
             Toast.makeText(this, "Review submitted", Toast.LENGTH_LONG).show();
             finish();
@@ -123,12 +118,11 @@ public class NewReviewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            setPic();
-            userPicture.setImageBitmap(bitmap);
+            userPicture.setImageBitmap(getPic());
         }
     }
 
-    private void setPic() {
+    private Bitmap getPic() {
         // Get the dimensions of the View
         int targetW = userPicture.getWidth();
         int targetH = userPicture.getHeight();
@@ -147,7 +141,7 @@ public class NewReviewActivity extends AppCompatActivity {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        return BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
     }
 
 }

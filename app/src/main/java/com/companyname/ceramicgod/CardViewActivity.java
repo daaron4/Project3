@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 public class CardViewActivity extends AppCompatActivity {
 
+    private ImageView userPicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +38,9 @@ public class CardViewActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
-                ImageView imageView = (ImageView) view.findViewById(R.id.image);
-                byte[] array = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.COL_PICTURE));
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length, options);
-                imageView.setImageBitmap(bitmap);
+                userPicture = (ImageView) view.findViewById(R.id.image);
+                String filePath = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_PICTURE));
+                userPicture.setImageBitmap(getPic(filePath));
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 String nameText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
@@ -67,5 +67,28 @@ public class CardViewActivity extends AppCompatActivity {
                 startActivity(detailIntent);
             }
         });
+    }
+
+    private Bitmap getPic(String filePath) {
+        // Get the dimensions of the View
+        userPicture.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int targetW = userPicture.getMeasuredWidth();
+        int targetH = userPicture.getMeasuredHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeFile(filePath, bmOptions);
     }
 }
