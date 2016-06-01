@@ -7,15 +7,15 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    DetailView mDetailButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);}
+        setContentView(R.layout.activity_main);
+    }
 
-        public void sendDetailView(View view){
-            Intent intent = new Intent(this, DetailView.class);
+        public void toiletButtonClicked(View view){
+            Intent intent = new Intent(this, ToiletView.class);
             startActivity(intent);
 
         }
