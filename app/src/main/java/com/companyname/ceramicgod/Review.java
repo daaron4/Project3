@@ -1,7 +1,5 @@
 package com.companyname.ceramicgod;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by David on 5/31/2016.
  */
@@ -13,9 +11,9 @@ public class Review {
     private String comments;
     private float latitude;
     private float longitude;
-    private Bitmap picture;
+    private byte[] picture;
 
-    public Review(String name, float rating, String date, String comments, float latitude, float longitude, Bitmap picture) {
+    public Review(String name, float rating, String date, String comments, float latitude, float longitude, byte[] picture) {
         this.name = name;
         this.rating = rating;
         this.date = date;
@@ -73,11 +71,11 @@ public class Review {
         this.longitude = longitude;
     }
 
-    public Bitmap getPicture() {
+    public byte[] getPicture() {
         return picture;
     }
 
-    public void setPicture(Bitmap picture) {
+    public void setPicture(byte[] picture) {
         this.picture = picture;
     }
 }
