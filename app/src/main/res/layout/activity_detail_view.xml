@@ -31,15 +31,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/detailTextView"
         android:layout_centerHorizontal="true"
-        android:paddingTop="@dimen/rating_bar_margin_top" />
+        android:paddingTop="@dimen/rating_bar_margin_top"
+        android:isIndicator="true"/>
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ratingBar"
-        android:text="@string/sample_address"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="@string/sample_address" />
 
     <TextView
         android:id="@+id/commentSection"
@@ -51,12 +52,13 @@
         android:text="@string/comments_text" />
 
     <Button
+        android:id="@+id/favoriteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/favorite_text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/commentSection"
         android:background="@drawable/ic_media_play"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        android:text="@string/favorite_text" />
 
 </RelativeLayout>

@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = DatabaseHelper.class.getCanonicalName();
@@ -139,6 +138,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null, // f. having
                 null, // g. order by
                 null); // h. limit
+        return cursor;
+    }
+
+    public Cursor getReviewAtIndex(int index) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selections = "_id = ?";
+        String[] selectionArgs = new String[] {
+                String.valueOf(index)
+        };
+        Cursor cursor = db.query(REVIEWS_TABLE, // a. table
+                COL_NAMES, // b. column names
+                selections, // c. selections
+                selectionArgs, // d. selections args
+                null, // e. group by
+                null, // f. having
+                null, // g. order by
+                null); // h. limit
+        cursor.moveToFirst();
         return cursor;
     }
 
