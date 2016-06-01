@@ -21,7 +21,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/maps_manifest_name" />
-        <activity android:name=".CardViewActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

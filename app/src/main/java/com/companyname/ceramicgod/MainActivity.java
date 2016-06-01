@@ -49,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void clickedCardViewActivity(View view) {
-        Intent cardViewActivityIntent = new Intent(MainActivity.this, CardViewActivity.class);
-        startActivity(cardViewActivityIntent);
-    }
-
     public void mapButtonClicked(View view) {
         Intent mainIntent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(mainIntent);
