@@ -2,9 +2,11 @@ package com.companyname.ceramicgod;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +33,11 @@ public class CardViewActivity extends AppCompatActivity {
 
             @Override
             public void bindView(View view, Context context, Cursor cursor) {
-                ImageView image = (ImageView) view.findViewById(R.id.image);
-                image.setImageResource(R.mipmap.ic_launcher);
+                ImageView imageView = (ImageView) view.findViewById(R.id.image);
+                byte[] array = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.COL_PICTURE));
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length, options);
+                imageView.setImageBitmap(bitmap);
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 String nameText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));

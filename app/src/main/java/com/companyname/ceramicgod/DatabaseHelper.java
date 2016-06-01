@@ -5,9 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -46,9 +49,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper instance;
 
+    //ToDo: remove this later when we don't need to seed data:
+    private static Context mContext;
+
     public static DatabaseHelper getInstance(Context context){
         if (instance == null) {
             instance = new DatabaseHelper(context.getApplicationContext());
+            mContext = context.getApplicationContext();
         }
         return instance;
     }
@@ -71,6 +78,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void loadDummyData(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
+        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
+        int size = bitmap.getRowBytes() * bitmap.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+        bitmap.copyPixelsToBuffer(byteBuffer);
+        byte[] byteArray = byteBuffer.array();
 
         values.put(COL_NAME, "GA");
         values.put(COL_RATING, 1.3f);
@@ -80,16 +92,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_LATITUDE, 34.012982);
         values.put(COL_LONGITUDE, -118.495196);
         values.put(COL_ADDRESS, "123 GA way");
+        values.put(COL_PICTURE, byteArray);
         db.insert(REVIEWS_TABLE, null, values);
 
         values = new ContentValues();
         values.put(COL_NAME, "The Craftsman");
         values.put(COL_RATING, 2.7f);
         values.put(COL_DATE, "5/31/16");
-        values.put(COL_COMMENTS, "Average bathroom, not very exciting, kinds gross at times");
+        values.put(COL_COMMENTS, "Average bathroom, not very exciting, kinda gross at times");
         values.put(COL_LATITUDE, 34.013235);
         values.put(COL_LONGITUDE, -118.496131);
         values.put(COL_ADDRESS, "456 craftsman st");
+        values.put(COL_PICTURE, byteArray);
         db.insert(REVIEWS_TABLE, null, values);
 
         values = new ContentValues();
@@ -100,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_LATITUDE, 34.02);
         values.put(COL_LONGITUDE, -118.49);
         values.put(COL_ADDRESS, "1 e pier blvd");
+        values.put(COL_PICTURE, byteArray);
         db.insert(REVIEWS_TABLE, null, values);
 
         values = new ContentValues();
@@ -110,6 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_LATITUDE, 34.01);
         values.put(COL_LONGITUDE, -118.40);
         values.put(COL_ADDRESS, "058 farting rd");
+        values.put(COL_PICTURE, byteArray);
         db.insert(REVIEWS_TABLE, null, values);
     }
 
@@ -132,7 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_NAME, review.getName());
         values.put(COL_RATING, review.getRating());
         values.put(COL_DATE, review.getDate());
-        values.put(COL_COMMENTS, review.getCommments());
+        values.put(COL_COMMENTS, review.getComments());
         values.put(COL_LATITUDE, review.getLatitude());
         values.put(COL_LONGITUDE, review.getLongitude());
         db.insert(REVIEWS_TABLE, null, values);
@@ -145,29 +161,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_NAME, review.getName());
         values.put(COL_RATING, review.getRating());
         values.put(COL_DATE, review.getDate());
-        values.put(COL_COMMENTS, review.getCommments());
+        values.put(COL_COMMENTS, review.getComments());
         values.put(COL_LATITUDE, review.getLatitude());
         values.put(COL_LONGITUDE, review.getLongitude());
 
         String selection = "_id = ?";
-
         String[] selectionArgs = new String[] {
                 String.valueOf(index)
         };
-
         db.update(REVIEWS_TABLE, values, selection, selectionArgs);
-
     }
 
     public void deleteReview(int index) {
         SQLiteDatabase db = getWritableDatabase();
-
         String selection = "_id = ?";
-
         String[] selectionArgs = new String[] {
                 String.valueOf(index)
         };
-
         db.delete(REVIEWS_TABLE, selection, selectionArgs);
     }
 
