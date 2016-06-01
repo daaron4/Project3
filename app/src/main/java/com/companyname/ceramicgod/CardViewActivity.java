@@ -1,13 +1,15 @@
 package com.companyname.ceramicgod;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +22,7 @@ public class CardViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card_view);
 
         Cursor cursor = DatabaseHelper.getInstance(CardViewActivity.this).getAllReviews();
-        CursorAdapter cursorAdapter = new CursorAdapter(this, cursor, 0) {
+        final CursorAdapter cursorAdapter = new CursorAdapter(this, cursor, 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -57,5 +59,17 @@ public class CardViewActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(cursorAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(CardViewActivity.this, DetailView.class);
+                Cursor cursor1 = cursorAdapter.getCursor();
+                cursor1.moveToPosition(position);
+                int id2 = cursor1.getInt(cursor1.getColumnIndex(DatabaseHelper.COL_ID));
+                detailIntent.putExtra("id", id2);
+                startActivity(detailIntent);
+            }
+        });
     }
 }
