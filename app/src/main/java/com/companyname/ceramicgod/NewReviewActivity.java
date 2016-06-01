@@ -17,13 +17,13 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NewReviewActivity extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_TAKE_PHOTO = 1;
 
     private EditText locationName;
     private RatingBar ratingBar;
@@ -34,6 +34,7 @@ public class NewReviewActivity extends AppCompatActivity {
     private ImageView userPicture;
 
     private String mCurrentPhotoPath;
+    private Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +72,12 @@ public class NewReviewActivity extends AppCompatActivity {
         // ToDo: add check for no picture:
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            int bytes = bitmap.getByteCount();
+            ByteBuffer buffer = ByteBuffer.allocate(bytes);
+            bitmap.copyPixelsToBuffer(buffer);
+            byte[] byteArray = buffer.array();
             Review newReview = new Review(locationName.getText().toString(), ratingBar.getRating(),
-                    userComments.getText().toString(), date, 0f,0f, getPic());
+                    userComments.getText().toString(), date, 0f,0f, byteArray);
             DatabaseHelper.getInstance(NewReviewActivity.this).insertReview(newReview);
             Toast.makeText(this, "Review submitted", Toast.LENGTH_LONG).show();
             finish();
@@ -118,12 +123,12 @@ public class NewReviewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap bitmap = getPic();
+            setPic();
             userPicture.setImageBitmap(bitmap);
         }
     }
 
-    private Bitmap getPic() {
+    private void setPic() {
         // Get the dimensions of the View
         int targetW = userPicture.getWidth();
         int targetH = userPicture.getHeight();
@@ -142,7 +147,7 @@ public class NewReviewActivity extends AppCompatActivity {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        return BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
     }
 
 }
