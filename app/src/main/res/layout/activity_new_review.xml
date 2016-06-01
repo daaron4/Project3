@@ -55,8 +55,7 @@
 
     <ImageView
         android:id="@+id/user_picture"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="500dp"
+        android:layout_height="500dp" />
 
 </LinearLayout>
