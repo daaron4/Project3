@@ -1,8 +1,11 @@
 package com.companyname.ceramicgod;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -14,7 +17,7 @@ public class DetailView extends AppCompatActivity {
     TextView mDetailTextView, mAddressTextView, mComment;
     Button mFavoriteButton;
     RatingBar ratingBar;
-    String name,comments, address;
+    String name,comments, address, filePath;
     int rating;
 
     @Override
@@ -32,20 +35,41 @@ public class DetailView extends AppCompatActivity {
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(DetailView.this);
 
         int id = getIntent().getIntExtra("id", -1);
-            Cursor detailViewCursor = databaseHelper.getReviewAtIndex(id);
-            name = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_NAME)));
-            comments = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_COMMENTS)));
-            address = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_ADDRESS)));
-            rating = detailViewCursor.getInt((detailViewCursor.getColumnIndex(DatabaseHelper.COL_RATING)));
+        Cursor detailViewCursor = databaseHelper.getReviewAtIndex(id);
+        name = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_NAME)));
+        comments = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_COMMENTS)));
+        address = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_ADDRESS)));
+        rating = detailViewCursor.getInt((detailViewCursor.getColumnIndex(DatabaseHelper.COL_RATING)));
+        filePath = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_PICTURE)));
 
-            mDetailTextView.setText(name);
-            mComment.setText(comments);
-            mAddressTextView.setText(address);
-            ratingBar.setRating(rating);
+        mDetailTextView.setText(name);
+        mComment.setText(comments);
+        mAddressTextView.setText(address);
+        ratingBar.setRating(rating);
+        mImageView.setImageBitmap(getPic(filePath));
 
     }
 
-    //TODO Connect photo to database.
+    private Bitmap getPic(String filePath) {
+        // Get the dimensions of the View
+        mImageView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int targetW = mImageView.getMeasuredWidth();
+        int targetH = mImageView.getMeasuredHeight();
 
-    //TODO Favorite button needs to connect to the Review Page.
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeFile(filePath, bmOptions);
+    }
 }
