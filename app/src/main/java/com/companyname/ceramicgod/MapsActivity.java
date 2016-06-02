@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -47,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng userLocation = new LatLng(LocationData.latitude, LocationData.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+        mMap.addMarker(new MarkerOptions().position(userLocation).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
 
         //Gives the default view of the map to a closer location.
         //Target sets the default location.
