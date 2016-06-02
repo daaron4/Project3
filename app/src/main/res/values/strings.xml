@@ -14,4 +14,9 @@
     </string>
     <string name="sample_address">Address Main St. USA</string>
     <string name="favorite_text">Favorite</string>
+    <string name="latitude_label">Latitude</string>
+    <string name="longitude_label">Longitude</string>
+    <string name="location_not_detected">No location detected</string>
+    <string name="connection_suspended">Connection Suspended</string>
+    <string name="connection_failed">"Connection failed: ConnectionResult.getErrorCode() = "</string>
 </resources>
