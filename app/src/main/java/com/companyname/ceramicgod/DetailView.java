@@ -48,6 +48,8 @@ public class DetailView extends AppCompatActivity {
         ratingBar.setRating(rating);
         mImageView.setImageBitmap(getPic(filePath));
 
+        mAddressTextView.setText("Latitude: " + LocationData.latitude + " Longitude: " + LocationData.longitude);
+
     }
 
     private Bitmap getPic(String filePath) {

@@ -35,26 +35,6 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/tabLayout" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
-
-        <Button
-            android:id="@+id/mapTestButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="mapButtonClicked"
-            android:text="Maps" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addReview"
-            android:text="Add a review" />
-
-    </LinearLayout>
-
 </RelativeLayout>
 
 
