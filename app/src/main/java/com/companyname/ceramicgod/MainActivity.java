@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             float longitude = (float)longDouble;
             LocationData.latitude = latitude;
             LocationData.longitude = longitude;
-            Toast.makeText(MainActivity.this, "Lat: " + LocationData.latitude + " Long: " + LocationData.longitude, Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(MainActivity.this, R.string.location_not_detected, Toast.LENGTH_LONG).show();
         }
@@ -128,16 +127,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
-    }
-
-    public void mapButtonClicked(View view) {
-        Intent mainIntent = new Intent(MainActivity.this, MapsActivity.class);
-        startActivity(mainIntent);
-    }
-
-    public void addReview(View view) {
-        Intent reviewIntent = new Intent(MainActivity.this, NewReviewActivity.class);
-        startActivity(reviewIntent);
     }
 
 }

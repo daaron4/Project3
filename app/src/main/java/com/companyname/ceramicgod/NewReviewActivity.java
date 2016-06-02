@@ -29,7 +29,6 @@ public class NewReviewActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private EditText userComments;
     private Button saveReview;
-    private Button favorite;
     private Button takePicture;
     private ImageView userPicture;
 
@@ -44,7 +43,6 @@ public class NewReviewActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.rating_bar);
         userComments = (EditText) findViewById(R.id.user_comments);
         saveReview = (Button) findViewById(R.id.save_review);
-        favorite = (Button) findViewById(R.id.favorite);
         takePicture = (Button) findViewById(R.id.take_picture);
         userPicture = (ImageView) findViewById(R.id.user_picture);
 
