@@ -35,3 +35,5 @@ build/
 
 #NDK
 obj/
+
+/app/src/main/java/com/companyname/ceramicgod/TwitterData.java
