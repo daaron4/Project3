@@ -6,6 +6,8 @@ package com.companyname.ceramicgod;
         import org.json.JSONArray;
         import org.json.JSONObject;
 
+        import java.util.Random;
+
         import cz.msebera.android.httpclient.Header;
 
 public class Flickr extends ToiletView {
@@ -43,7 +45,9 @@ public class Flickr extends ToiletView {
                         try {
                             JSONObject results = response.getJSONObject("photos");
                             JSONArray post = results.getJSONArray("photo");
-                            JSONObject fetchToilet = post.getJSONObject(0);
+                            Random randomToilet = new Random();
+                            int idFetchToilet = randomToilet.nextInt(post.length());
+                            JSONObject fetchToilet = post.getJSONObject(idFetchToilet);
                             id = fetchToilet.getString("id");
                             secret = fetchToilet.getString("secret");
                             server = fetchToilet.getString("server");

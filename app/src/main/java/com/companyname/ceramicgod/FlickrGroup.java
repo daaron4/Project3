@@ -6,6 +6,8 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import cz.msebera.android.httpclient.Header;
 
 public class FlickrGroup extends ToiletView {
@@ -43,7 +45,9 @@ public class FlickrGroup extends ToiletView {
                         try {
                             JSONObject results = response.getJSONObject("photos");
                             JSONArray post = results.getJSONArray("photo");
-                            JSONObject fetchSigns = post.getJSONObject(0);
+                            Random randomToiletGroup = new Random();
+                            int idFetchSigns = randomToiletGroup.nextInt(post.length());
+                            JSONObject fetchSigns = post.getJSONObject(idFetchSigns);
                             id = fetchSigns.getString("id");
                             secret = fetchSigns.getString("secret");
                             server = fetchSigns.getString("server");
