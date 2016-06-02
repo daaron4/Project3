@@ -20,6 +20,13 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import twitter4j.Status;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class NewReviewActivity extends AppCompatActivity {
 
@@ -31,6 +38,7 @@ public class NewReviewActivity extends AppCompatActivity {
     private Button saveReview;
     private Button favorite;
     private Button takePicture;
+    private Button post;
     private ImageView userPicture;
 
     private String mCurrentPhotoPath;
@@ -46,6 +54,7 @@ public class NewReviewActivity extends AppCompatActivity {
         saveReview = (Button) findViewById(R.id.save_review);
         favorite = (Button) findViewById(R.id.favorite);
         takePicture = (Button) findViewById(R.id.take_picture);
+        post = (Button) findViewById(R.id.post);
         userPicture = (ImageView) findViewById(R.id.user_picture);
 
         saveReview.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +68,35 @@ public class NewReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 clickedTakePicture();
+            }
+        });
+
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConfigurationBuilder configBuilder = new ConfigurationBuilder();
+                configBuilder.setDebugEnabled(true);
+
+                configBuilder.setOAuthConsumerKey(TwitterData.OAUTH_CONSUMER_KEY);
+                configBuilder.setOAuthConsumerSecret(TwitterData.OAUTH_CONSUMER_SECRET);
+                configBuilder.setOAuthAccessToken(TwitterData.OAUTH_ACCESS_TOKEN);
+                configBuilder.setOAuthAccessTokenSecret(TwitterData.OAUTH_ACCESS_TOKEN_SECRET);
+
+                TwitterFactory tf = new TwitterFactory(configBuilder.build());
+                final Twitter twitter = tf.getInstance();
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Status status = twitter.updateStatus(locationName.getText().toString());
+                            System.out.println("Successfully updated the status to [" + status.getText() + "].");
+                        } catch(TwitterException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
             }
         });
 
