@@ -67,6 +67,9 @@ public class NewReviewFragment extends Fragment {
         if (locationName.getText().toString().equals("")) {
             Toast.makeText(getContext(), "Please enter a name of the place", Toast.LENGTH_LONG).show();
         }
+        else if (userPicture.getDrawable() == null) {
+            Toast.makeText(getContext(), "Please take a picture", Toast.LENGTH_LONG).show();
+        }
         // ToDo: add check for no picture:
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -74,6 +77,10 @@ public class NewReviewFragment extends Fragment {
                     date, userComments.getText().toString(), LocationData.latitude,LocationData.longitude, PictureUtility.getmCurrentPhotoPath());
             DatabaseHelper.getInstance(getContext()).insertReview(newReview);
             Toast.makeText(getContext(), "Review submitted", Toast.LENGTH_LONG).show();
+            userComments.setText("");
+            locationName.setText("");
+            ratingBar.setNumStars(0);
+            userPicture.setImageResource(0);
         }
     }
 

@@ -14,8 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 import java.nio.ByteBuffer;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = DatabaseHelper.class.getCanonicalName();
-
     private static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Reviews.db";
 
@@ -190,6 +188,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String.valueOf(index)
         };
         db.delete(REVIEWS_TABLE, selection, selectionArgs);
+    }
+
+    public long insertApiReview(ContentValues values) {
+        SQLiteDatabase db = getWritableDatabase();
+        long insertedRow = db.insert(REVIEWS_TABLE, null, values);
+        return insertedRow;
     }
 
 }
