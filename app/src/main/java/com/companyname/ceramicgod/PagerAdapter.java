@@ -3,12 +3,11 @@ package com.companyname.ceramicgod;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
-/**
- * Created by RandyBiglow on 6/1/16.
- */
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mTabs;
+    private Fragment currentFragment;
 
     public PagerAdapter(FragmentManager fm, int tabs) {
         super(fm);
@@ -17,19 +16,32 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
             case 0:
-                return new NearbyFragment();
+                currentFragment = new NearbyFragment();
+                return currentFragment;
             case 1:
-                return new PinnableMapFragment();
+                currentFragment = new PinnableMapFragment();
+                return currentFragment;
             case 2:
-                return new FavoritesFragment();
+                currentFragment = new NewReviewFragment();
+                return currentFragment;
             case 3:
-                return new RandomPhotoFragment();
+                currentFragment = new RandomPhotoFragment();
+                return currentFragment;
             default:
                 return null;
         }
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        currentFragment = null;
+        super.destroyItem(container, position, object);
+    }
+
+    public Fragment getCurrentFragment() {
+        return currentFragment;
     }
 
     @Override
