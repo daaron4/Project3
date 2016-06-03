@@ -51,14 +51,13 @@
         android:layout_marginTop="@dimen/rating_bar_margin_top"
         android:text="@string/comments_text" />
 
-    <Button
-        android:id="@+id/favoriteButton"
+    <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/commentSection"
-        android:background="@drawable/ic_media_play"
-        android:text="@string/favorite_text" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/rating_bar_margin_top"
+        android:text="Date" />
 
 </RelativeLayout>

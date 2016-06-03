@@ -14,10 +14,9 @@ import android.widget.TextView;
 public class DetailView extends AppCompatActivity {
 
     ImageView mImageView;
-    TextView mDetailTextView, mAddressTextView, mComment;
-    Button mFavoriteButton;
+    TextView mDetailTextView, mAddressTextView, mComment, mDateView;
     RatingBar ratingBar;
-    String name,comments, address, filePath;
+    String name,comments, address, filePath, date;
     int rating;
 
     @Override
@@ -29,7 +28,7 @@ public class DetailView extends AppCompatActivity {
         mDetailTextView = (TextView) findViewById(R.id.detailTextView);
         mAddressTextView = (TextView) findViewById(R.id.address);
         mComment = (TextView) findViewById(R.id.commentSection);
-        mFavoriteButton = (Button) findViewById(R.id.favoriteButton);
+        mDateView = (TextView) findViewById(R.id.date);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(DetailView.this);
@@ -39,6 +38,7 @@ public class DetailView extends AppCompatActivity {
         name = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_NAME)));
         comments = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_COMMENTS)));
         address = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_ADDRESS)));
+        date = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_DATE)));
         rating = detailViewCursor.getInt((detailViewCursor.getColumnIndex(DatabaseHelper.COL_RATING)));
         filePath = detailViewCursor.getString((detailViewCursor.getColumnIndex(DatabaseHelper.COL_PICTURE)));
 
@@ -47,6 +47,7 @@ public class DetailView extends AppCompatActivity {
         mAddressTextView.setText(address);
         ratingBar.setRating(rating);
         mImageView.setImageBitmap(getPic(filePath));
+        mDateView.setText(date);
 
         float lat = detailViewCursor.getFloat(detailViewCursor.getColumnIndex(DatabaseHelper.COL_LATITUDE));
         float lon = detailViewCursor.getFloat(detailViewCursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE));

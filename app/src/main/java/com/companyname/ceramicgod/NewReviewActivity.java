@@ -70,7 +70,7 @@ public class NewReviewActivity extends AppCompatActivity {
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             Review newReview = new Review(locationName.getText().toString(), ratingBar.getRating(),
-                    userComments.getText().toString(), date, LocationData.latitude,LocationData.longitude, mCurrentPhotoPath);
+                    date, userComments.getText().toString(), LocationData.latitude,LocationData.longitude, mCurrentPhotoPath);
             DatabaseHelper.getInstance(NewReviewActivity.this).insertReview(newReview);
             Toast.makeText(this, "Review submitted", Toast.LENGTH_LONG).show();
             finish();
