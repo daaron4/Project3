@@ -10,7 +10,7 @@ import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
-public class FlickrGroup extends ToiletView {
+public class FlickrGroup {
 
     private static FlickrGroup instance;
     private static PhotoCallbackSigns callbackSigns;
@@ -19,7 +19,6 @@ public class FlickrGroup extends ToiletView {
     private FlickrGroup(){
         //Method needs to be empty.
     }
-
 
     public static FlickrGroup getInstance(PhotoCallbackSigns call) {
         callbackSigns = call;

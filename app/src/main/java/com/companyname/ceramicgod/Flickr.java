@@ -1,16 +1,16 @@
 package com.companyname.ceramicgod;
 
-        import com.loopj.android.http.AsyncHttpClient;
-        import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
-        import org.json.JSONArray;
-        import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-        import java.util.Random;
+import java.util.Random;
 
-        import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.Header;
 
-public class Flickr extends ToiletView {
+public class Flickr {
 
     private static Flickr instance;
     private static PhotoCallback callback;

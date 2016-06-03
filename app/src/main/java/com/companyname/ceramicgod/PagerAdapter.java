@@ -27,7 +27,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 currentFragment = new NewReviewFragment();
                 return currentFragment;
             case 3:
-                currentFragment = new RandomPhotoFragment();
+                currentFragment = new ToiletFragment();
                 return currentFragment;
             default:
                 return null;
