@@ -34,6 +34,9 @@
         <activity android:name=".NewReviewActivity"></activity>
         <activity android:name=".DetailView"></activity>
         <activity android:name=".ToiletView"></activity>
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>

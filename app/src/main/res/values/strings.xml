@@ -19,4 +19,12 @@
     <string name="location_not_detected">No location detected</string>
     <string name="connection_suspended">Connection Suspended</string>
     <string name="connection_failed">"Connection failed: ConnectionResult.getErrorCode() = "</string>
+    <string name="not_receiver">Receiver not received. There is no where to send the results.</string>
+    <string name="no_data_location">No location data provided</string>
+    <string name="service_not_available">Service is not available</string>
+    <string name="invalid_lat_long">Invalid Latitude and Longitude used.</string>
+    <string name="no_address_found">No address found!</string>
+    <string name="address_found">Address found!</string>
+    <string name="no_geocoder_available">No GeoCoder Available</string>
+    <string name="address">Address</string>
 </resources>
