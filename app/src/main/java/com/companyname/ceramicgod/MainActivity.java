@@ -3,8 +3,6 @@ package com.companyname.ceramicgod;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -74,16 +71,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void handleCallback(String response) {
-        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
-        if (toiletFragment != null) {
-            toiletFragment.placeImageToilet(response);
+        Fragment toiletFragment = (Fragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null && toiletFragment instanceof ToiletFragment) {
+            ((ToiletFragment)toiletFragment).handleCallback(response);
+            //toiletFragment.placeImageToilet(response);
         }
     }
 
     public void handleCallbackSigns(String response) {
-        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
-        if (toiletFragment != null) {
-            toiletFragment.placeImageSign(response);
+        Fragment toiletFragment = (Fragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null && toiletFragment instanceof ToiletFragment){
+            ((ToiletFragment)toiletFragment).handleCallbackSigns(response);
+            //toiletFragment.placeImageSign(response);
         }
     }
 
@@ -143,12 +142,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
         mGoogleApiClient.connect();
-        Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
