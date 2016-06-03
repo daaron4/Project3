@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class ToiletFragment extends Fragment {
+public class ToiletFragment extends Fragment { //implements PhotoCallback,PhotoCallbackSigns {
 
     private ImageView mToiletView;
     private ImageView mSignView;
@@ -21,12 +21,13 @@ public class ToiletFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_toilet, container, false);
         mToiletView = (ImageView) view.findViewById(R.id.toilet_image_view);
         mSignView = (ImageView) view.findViewById(R.id.toilet_sign_image_view);
-        Flickr.getInstance((PhotoCallback)getActivity()).doRequest();
-        FlickrGroup.getInstance((PhotoCallbackSigns)getActivity()).doRequestSigns();
+        Flickr.getInstance((PhotoCallback)this.getActivity()).doRequest();
+        FlickrGroup.getInstance((PhotoCallbackSigns)this.getActivity()).doRequestSigns();
         return view;
     }
 
-    public void placeImageToilet(String response) {
+    //public void placeImageToilet(String response) {
+    public void handleCallback(String response) {
         Picasso.with(getContext())
                 .load(response)
                 .fit()
@@ -34,7 +35,8 @@ public class ToiletFragment extends Fragment {
                 .into(mToiletView);
     }
 
-    public void placeImageSign(String response) {
+    //public void placeImageSigns(String response) {
+    public void handleCallbackSigns(String response) {
         Picasso.with(getContext())
                 .load(response)
                 .fit()

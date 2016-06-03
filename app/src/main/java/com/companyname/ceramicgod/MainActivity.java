@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,16 +71,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void handleCallback(String response) {
-        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
-        if (toiletFragment != null) {
-            toiletFragment.placeImageToilet(response);
+        Fragment toiletFragment = (Fragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null && toiletFragment instanceof ToiletFragment) {
+            ((ToiletFragment)toiletFragment).handleCallback(response);
+            //toiletFragment.placeImageToilet(response);
         }
     }
 
     public void handleCallbackSigns(String response) {
-        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
-        if (toiletFragment != null) {
-            toiletFragment.placeImageSign(response);
+        Fragment toiletFragment = (Fragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null && toiletFragment instanceof ToiletFragment){
+            ((ToiletFragment)toiletFragment).handleCallbackSigns(response);
+            //toiletFragment.placeImageSign(response);
         }
     }
 
@@ -139,12 +142,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
         mGoogleApiClient.connect();
-        Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
