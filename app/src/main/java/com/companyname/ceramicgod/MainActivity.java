@@ -22,7 +22,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ActivityCompat.OnRequestPermissionsResultCallback{
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, ActivityCompat.OnRequestPermissionsResultCallback,
+        PhotoCallback, PhotoCallbackSigns{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -69,6 +71,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             }
         });
+    }
+
+    public void handleCallback(String response) {
+        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null) {
+            toiletFragment.placeImageToilet(response);
+        }
+    }
+
+    public void handleCallbackSigns(String response) {
+        ToiletFragment toiletFragment = (ToiletFragment) pagerAdapter.getCurrentFragment();
+        if (toiletFragment != null) {
+            toiletFragment.placeImageSign(response);
+        }
     }
 
     private void buildGoogleApiClient() {
