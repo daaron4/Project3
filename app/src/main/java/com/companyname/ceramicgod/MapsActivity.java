@@ -36,10 +36,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         Cursor cursor = DatabaseHelper.getInstance(MapsActivity.this).getAllReviews();
         while (cursor.moveToNext()) {
-            Toast.makeText(MapsActivity.this, "Number of Rows: " + cursor.getCount(), Toast.LENGTH_SHORT).show();
             float lat = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COL_LATITUDE));
             float lon = cursor.getFloat(cursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE));
-            Toast.makeText(MapsActivity.this, "Lat: " + lat + " Long: " + lon, Toast.LENGTH_SHORT).show();
             LatLng current = new LatLng(lat, lon);
             mMap.addMarker(new MarkerOptions().position(current));
         }
