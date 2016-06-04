@@ -6,12 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.google.android.gms.maps.model.LatLng;
-
-import java.nio.ByteBuffer;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = DatabaseHelper.class.getCanonicalName();
@@ -25,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_NAME = "name";
     public static final String COL_RATING = "rating";
     public static final String COL_DATE = "date";
-    public static final String COL_COMMENTS = "comments";
+    public static final String COL_COMMENTS = "comment";
     public static final String COL_LATITUDE = "latitude";
     public static final String COL_LONGITUDE = "longitude";
     public static final String COL_ADDRESS = "address";
@@ -190,6 +184,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String.valueOf(index)
         };
         db.delete(REVIEWS_TABLE, selection, selectionArgs);
+    }
+
+    public long insertApiReview(ContentValues values) {
+        SQLiteDatabase db = getWritableDatabase();
+        long insertedRow = db.insert(REVIEWS_TABLE, null, values);
+        return insertedRow;
     }
 
 }
