@@ -24,7 +24,7 @@ public class ReviewContentProvider extends ContentProvider {
     static {
         sURIMatcher.addURI(AUTHORITY, REVIEWS_TABLE, ALL_REVIEWS);
         sURIMatcher.addURI(AUTHORITY, REVIEWS_TABLE + "/#", ONE_REVIEW);
-//        sURIMatcher.addURI(AUTHORITY, REVIEWS_TABLE, INSERT_REVIEW);
+//        sURIMatcher.addURI(AUTHORITY, REVIEWS_TABLE + "/reviews", INSERT_REVIEW);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ReviewContentProvider extends ContentProvider {
 
         long id = 0;
         switch (uriType) {
-            case INSERT_REVIEW:
+            case ALL_REVIEWS:
                 id = DatabaseHelper.getInstance(getContext()).insertApiReview(values);
                 break;
             default:

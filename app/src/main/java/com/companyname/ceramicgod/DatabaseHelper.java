@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_NAME = "name";
     public static final String COL_RATING = "rating";
     public static final String COL_DATE = "date";
-    public static final String COL_COMMENTS = "comments";
+    public static final String COL_COMMENTS = "comment";
     public static final String COL_LATITUDE = "latitude";
     public static final String COL_LONGITUDE = "longitude";
     public static final String COL_ADDRESS = "address";

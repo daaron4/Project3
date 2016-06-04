@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncResult;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 
 /**
@@ -55,18 +57,18 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         Gson gson = new Gson();
-        SearchResult result = gson.fromJson(data,SearchResult.class);
+        DataModel[] result = gson.fromJson(data,DataModel[].class);
 
-        for (int i = 0; i < result.getResults().size(); i++) {
+        for (int i = 0; i < result.length; i++) {
             ContentValues values = new ContentValues();
-            values.put("name",result.getResults().get(i).getName());
-            values.put("rating",result.getResults().get(i).getRating());
-            values.put("date",result.getResults().get(i).getDate());
-            values.put("comment",result.getResults().get(i).getComment());
-            values.put("latitude",result.getResults().get(i).getLatitude());
-            values.put("longitude",result.getResults().get(i).getLongitude());
-            values.put("address",result.getResults().get(i).getAddress());
-            values.put("picture",result.getResults().get(i).getImg_url().toString());
+            values.put("name",result[i].getName());
+            values.put("rating",result[i].getRating());
+            values.put("date",result[i].getDate());
+            values.put("comment",result[i].getComment());
+            values.put("latitude",result[i].getLatitude());
+            values.put("longitude",result[i].getLongitude());
+            values.put("address",result[i].getAddress());
+            values.put("picture",result[i].getImg_url().toString());
             mContentResolver.insert(ReviewContentProvider.CONTENT_URI,values);
         }
     }
