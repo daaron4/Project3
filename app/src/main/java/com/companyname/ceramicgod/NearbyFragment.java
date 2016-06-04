@@ -1,11 +1,17 @@
 package com.companyname.ceramicgod;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
@@ -20,6 +26,12 @@ import android.widget.TextView;
 
 public class NearbyFragment extends Fragment {
 
+    public static final String AUTHORITY = "com.companyname.ceramicgod.ReviewContentProvider";
+    public static final String ACCOUNT_TYPE = "example.com";
+    public static final String ACCOUNT = "default_account";
+
+    private Account mAccount;
+    private CursorAdapter cursorAdapter;
     private ImageView userPicture;
 
     @Nullable
@@ -27,8 +39,10 @@ public class NearbyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
 
-        Cursor cursor = DatabaseHelper.getInstance(getContext()).getAllReviews();
-        final CursorAdapter cursorAdapter = new CursorAdapter(getContext(), cursor, 0) {
+        mAccount = createSyncAccount(getContext());
+
+        Cursor cursor = getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null);
+        cursorAdapter = new CursorAdapter(getContext(), cursor, 0) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
                 LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -68,6 +82,23 @@ public class NearbyFragment extends Fragment {
             }
         });
 
+        getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
+
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+        ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+
+//        ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
+//        ContentResolver.addPeriodicSync(
+//                mAccount,
+//                AUTHORITY,
+//                Bundle.EMPTY,
+//                60);
+
         return view;
     }
 
@@ -85,12 +116,38 @@ public class NearbyFragment extends Fragment {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
         return BitmapFactory.decodeFile(filePath, bmOptions);
+    }
+
+    public static Account createSyncAccount(Context context) {
+        // Create the account type and default account
+        Account newAccount = new Account(
+                ACCOUNT, ACCOUNT_TYPE);
+        // Get an instance of the Android account manager
+        AccountManager accountManager =
+                (AccountManager) context.getSystemService(
+                        Context.ACCOUNT_SERVICE);
+        if (accountManager.addAccountExplicitly(newAccount, null, null)) {
+        } else {
+        }
+        return newAccount;
+    }
+
+    public class ReviewsContentObserver extends ContentObserver {
+
+        public ReviewsContentObserver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            cursorAdapter.changeCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+        }
     }
 }
