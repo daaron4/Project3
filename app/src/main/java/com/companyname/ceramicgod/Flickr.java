@@ -32,7 +32,7 @@ public class Flickr {
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(
-                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a40360bdf387fa2da03c446546fd7ccc&tags=toilet&format=json&nojsoncallback=1"
+                "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=" + FlickrData.FLICKR_API_KEY + "&tags=toilet&format=json&nojsoncallback=1"
                 ,
                 null,
                 new JsonHttpResponseHandler() {

@@ -32,7 +32,7 @@ public class FlickrGroup {
         AsyncHttpClient client = new AsyncHttpClient();
 
         client.get(
-                "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=a40360bdf387fa2da03c446546fd7ccc&group_id=40881558@N00&format=json&nojsoncallback=1"
+                "https://api.flickr.com/services/rest/?method=flickr.groups.pools.getPhotos&api_key=" + FlickrData.FLICKR_API_KEY + "&group_id=40881558@N00&format=json&nojsoncallback=1"
                 ,null,
                 new JsonHttpResponseHandler() {
                     @Override

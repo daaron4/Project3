@@ -37,3 +37,4 @@ build/
 obj/
 
 /app/src/main/java/com/companyname/ceramicgod/TwitterData.java
+/app/src/main/java/com/companyname/ceramicgod/FlickrData.java
