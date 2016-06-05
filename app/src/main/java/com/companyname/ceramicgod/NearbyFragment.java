@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,7 +156,16 @@ public class NearbyFragment extends Fragment {
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            try {
+                cursorAdapter.changeCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            } catch (NullPointerException e) {
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+                Log.d("BAD", "THIS SHOULD NOT BE HAPPENING!");
+            }
         }
     }
 }
