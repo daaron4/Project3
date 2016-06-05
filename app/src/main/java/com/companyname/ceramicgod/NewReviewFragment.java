@@ -79,7 +79,7 @@ public class NewReviewFragment extends Fragment {
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             Review newReview = new Review(locationName.getText().toString(), ratingBar.getRating(),
-                    date, userComments.getText().toString(), DataTypes.latitude, DataTypes.longitude, "Test photo path");
+                    date, userComments.getText().toString(), DataTypes.latitude, DataTypes.longitude, "address", "Test photo path");
             DatabaseHelper.getInstance(getContext()).insertReview(newReview);
             Toast.makeText(getContext(), "Review submitted", Toast.LENGTH_LONG).show();
             // Post review:
@@ -103,7 +103,7 @@ public class NewReviewFragment extends Fragment {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        URL url = new URL("https://nameless-bayou-62702.herokuapp.com/reviews");
+                        URL url = new URL("http://nameless-bayou-62702.herokuapp.com/reviews");
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setDoOutput(true);
                         conn.setRequestMethod("POST");

@@ -107,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_COMMENTS, review.getComments());
         values.put(COL_LATITUDE, review.getLatitude());
         values.put(COL_LONGITUDE, review.getLongitude());
+        values.put(COL_ADDRESS, review.getAddress());
         values.put(COL_PICTURE, review.getFilePath());
         db.insert(REVIEWS_TABLE, null, values);
     }
@@ -121,6 +122,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_COMMENTS, review.getComments());
         values.put(COL_LATITUDE, review.getLatitude());
         values.put(COL_LONGITUDE, review.getLongitude());
+        values.put(COL_ADDRESS, review.getAddress());
+        values.put(COL_PICTURE, review.getFilePath());
 
         String selection = "_id = ?";
         String[] selectionArgs = new String[] {
