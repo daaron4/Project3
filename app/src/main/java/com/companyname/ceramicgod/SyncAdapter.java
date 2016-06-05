@@ -21,7 +21,6 @@ import java.net.URL;
 
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
     public static final Uri CONTENT_URI = ReviewContentProvider.CONTENT_URI;
-    private static String TAG = SyncAdapter.class.getCanonicalName();
 
     // Global variables
     // Define a variable to contain a content resolver instance
@@ -58,7 +57,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
         String data ="";
         try {
-            URL url = new URL("https://nameless-bayou-62702.herokuapp.com/reviews.json");
+            URL url = new URL("http://nameless-bayou-62702.herokuapp.com/reviews.json");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
             InputStream inStream = connection.getInputStream();
