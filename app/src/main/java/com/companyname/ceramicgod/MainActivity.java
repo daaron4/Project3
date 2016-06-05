@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             double longDouble = mLastLocation.getLongitude();
             float latitude = (float)latDouble;
             float longitude = (float)longDouble;
-            LocationData.latitude = latitude;
-            LocationData.longitude = longitude;
+            DataTypes.latitude = latitude;
+            DataTypes.longitude = longitude;
         } else {
             Toast.makeText(MainActivity.this, R.string.location_not_detected, Toast.LENGTH_LONG).show();
         }

@@ -40,6 +40,7 @@ public class NearbyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
 
         mAccount = createSyncAccount(getContext());
+        DataTypes.mAccount = mAccount;
 
         Cursor cursor = getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null);
         cursorAdapter = new CursorAdapter(getContext(), cursor, 0) {
