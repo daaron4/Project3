@@ -36,12 +36,6 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/save_review"
-        android:text="save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
         android:id="@+id/take_picture"
         android:text="take picture"
         android:layout_width="wrap_content"
@@ -50,6 +44,12 @@
     <Button
         android:id="@+id/tweet"
         android:text="Tweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/save_review"
+        android:text="Submite review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

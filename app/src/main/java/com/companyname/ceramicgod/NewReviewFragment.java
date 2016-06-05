@@ -109,7 +109,8 @@ public class NewReviewFragment extends Fragment {
         else {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             Review newReview = new Review(locationName.getText().toString(), ratingBar.getRating(),
-                    date, userComments.getText().toString(), LocationData.latitude,LocationData.longitude, PictureUtility.getmCurrentPhotoPath());
+                    date, userComments.getText().toString(), LocationData.latitude,LocationData.longitude,
+                    "Test address", "Test photo path");
             DatabaseHelper.getInstance(getContext()).insertReview(newReview);
             Toast.makeText(getContext(), "Review submitted", Toast.LENGTH_LONG).show();
         }

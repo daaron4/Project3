@@ -11,15 +11,17 @@ public class Review {
     private String comments;
     private float latitude;
     private float longitude;
+    private String address;
     private String filePath;
 
-    public Review(String name, float rating, String date, String comments, float latitude, float longitude, String filePath) {
+    public Review(String name, float rating, String date, String comments, float latitude, float longitude, String address, String filePath) {
         this.name = name;
         this.rating = rating;
         this.date = date;
         this.comments = comments;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.address = address;
         this.filePath = filePath;
     }
 
@@ -69,6 +71,14 @@ public class Review {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getFilePath() {

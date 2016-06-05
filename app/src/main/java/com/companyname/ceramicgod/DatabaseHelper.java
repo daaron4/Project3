@@ -66,54 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-//    public void loadDummyData(SQLiteDatabase db) {
-//        ContentValues values = new ContentValues();
-//
-//        values.put(COL_NAME, "GA");
-//        values.put(COL_RATING, 1.3f);
-//        values.put(COL_DATE, "5/4/16");
-//        values.put(COL_COMMENTS, "Second floor bathroom is handicap accessible, however " +
-//                "you have to go up stairs to get there...");
-//        values.put(COL_LATITUDE, 34.012982);
-//        values.put(COL_LONGITUDE, -118.495196);
-//        values.put(COL_ADDRESS, "123 GA way");
-//        values.put(COL_PICTURE, "path to pic");
-//        db.insert(REVIEWS_TABLE, null, values);
-//
-//        values = new ContentValues();
-//        values.put(COL_NAME, "The Craftsman");
-//        values.put(COL_RATING, 2.7f);
-//        values.put(COL_DATE, "5/31/16");
-//        values.put(COL_COMMENTS, "Average bathroom, not very exciting, kinda gross at times");
-//        values.put(COL_LATITUDE, 34.013235);
-//        values.put(COL_LONGITUDE, -118.496131);
-//        values.put(COL_ADDRESS, "456 craftsman st");
-//        values.put(COL_PICTURE, "path to pic");
-//        db.insert(REVIEWS_TABLE, null, values);
-//
-//        values = new ContentValues();
-//        values.put(COL_NAME, "Santa Monica");
-//        values.put(COL_RATING, 2f);
-//        values.put(COL_DATE, "1/1/1");
-//        values.put(COL_COMMENTS, "Crowded, smelly, fartz");
-//        values.put(COL_LATITUDE, 34.02);
-//        values.put(COL_LONGITUDE, -118.49);
-//        values.put(COL_ADDRESS, "1 e pier blvd");
-//        values.put(COL_PICTURE, "path to pic");
-//        db.insert(REVIEWS_TABLE, null, values);
-//
-//        values = new ContentValues();
-//        values.put(COL_NAME, "My bathroom");
-//        values.put(COL_RATING, 4.5f);
-//        values.put(COL_DATE, "10/10/10");
-//        values.put(COL_COMMENTS, "Okay... at times...");
-//        values.put(COL_LATITUDE, 34.01);
-//        values.put(COL_LONGITUDE, -118.40);
-//        values.put(COL_ADDRESS, "058 farting rd");
-//        values.put(COL_PICTURE, "path to pic");
-//        db.insert(REVIEWS_TABLE, null, values);
-//    }
-
     public Cursor getAllReviews(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(REVIEWS_TABLE, // a. table
@@ -124,7 +76,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null, // f. having
                 null, // g. order by
                 null); // h. limit
-        DatabaseUtils.dumpCursor(cursor);
         return cursor;
     }
 
@@ -155,6 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_COMMENTS, review.getComments());
         values.put(COL_LATITUDE, review.getLatitude());
         values.put(COL_LONGITUDE, review.getLongitude());
+        values.put(COL_ADDRESS, review.getAddress());
         values.put(COL_PICTURE, review.getFilePath());
         db.insert(REVIEWS_TABLE, null, values);
     }

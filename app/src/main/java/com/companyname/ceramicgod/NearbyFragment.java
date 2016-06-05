@@ -155,7 +155,7 @@ public class NearbyFragment extends Fragment {
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            cursorAdapter.changeCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
         }
     }
 }
