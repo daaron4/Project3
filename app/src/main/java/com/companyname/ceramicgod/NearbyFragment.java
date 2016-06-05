@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class NearbyFragment extends Fragment {
 
     public static final String AUTHORITY = "com.companyname.ceramicgod.ReviewContentProvider";
@@ -54,7 +56,13 @@ public class NearbyFragment extends Fragment {
             public void bindView(View view, Context context, Cursor cursor) {
                 userPicture = (ImageView) view.findViewById(R.id.image);
                 String filePath = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_PICTURE));
-                userPicture.setImageBitmap(getPic(filePath));
+                // ToDo: will create problems:
+                Picasso.with(getContext())
+                        .load(filePath)
+                        .fit()
+                        .centerCrop()
+                        .into(userPicture);
+                //userPicture.setImageBitmap(getPic(filePath));
 
                 TextView name = (TextView) view.findViewById(R.id.name);
                 String nameText = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COL_NAME));
