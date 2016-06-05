@@ -1,9 +1,15 @@
 package com.companyname.ceramicgod;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
@@ -24,10 +31,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         PhotoCallback, PhotoCallbackSigns{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int NOTIFICATION = 1;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private PagerAdapter pagerAdapter;
+
+    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    notificationManager.cancel(MainActivity.NOTIFICATION);
+    ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+    if (networkInfo != null && networkInfo.isConnected()){
+    } else {
+        showNetworkNotAvailableNotification();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +176,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 newReviewFragment.putPicOnView(PictureUtility.getPic());
             }
         }
+    }
+
+    private void showNetworkNotAvailableNotification() {
+        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+        bigPictureStyle.bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.network_available_no)).build();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.drawable.network_icon);
+        mBuilder.setContentTitle("Network Alert!");
+        mBuilder.setContentText("Connection Unavailable");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setStyle(bigPictureStyle);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(NOTIFICATION, mBuilder.build());
     }
 
 }
