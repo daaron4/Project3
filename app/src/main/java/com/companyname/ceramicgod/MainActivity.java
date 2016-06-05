@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         //Establishing the Tabs on the tabLayout.
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Nearby"));
-        tabLayout.addTab(tabLayout.newTab().setText("Map"));
         tabLayout.addTab(tabLayout.newTab().setText("Add New Review"));
         tabLayout.addTab(tabLayout.newTab().setText("Photo"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -117,13 +116,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 && ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
