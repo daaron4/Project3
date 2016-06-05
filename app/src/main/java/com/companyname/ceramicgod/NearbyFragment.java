@@ -15,10 +15,12 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -40,6 +42,15 @@ public class NearbyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
+
+        Button button = (Button) view.findViewById(R.id.mapButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(),MapsActivity.class);
+                startActivity(i);
+            }
+        });
 
         mAccount = createSyncAccount(getContext());
 
@@ -155,7 +166,11 @@ public class NearbyFragment extends Fragment {
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            try {
+                cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            } catch (NullPointerException e) {
+                Log.d(":(", "fixing...");
+            }
         }
     }
 }
