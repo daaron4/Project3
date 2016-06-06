@@ -63,10 +63,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 && ActivityCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
-            Log.d("", "");
             return;
         }
+
+        mMap.setMyLocationEnabled(true);
     }
 
 }
