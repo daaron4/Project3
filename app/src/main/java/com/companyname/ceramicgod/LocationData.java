@@ -6,5 +6,5 @@ package com.companyname.ceramicgod;
 public class LocationData {
     public static float latitude;
     public static float longitude;
-    public static String address;
+    public static String address = "";
 }

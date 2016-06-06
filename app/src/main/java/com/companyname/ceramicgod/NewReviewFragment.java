@@ -143,6 +143,8 @@ public class NewReviewFragment extends Fragment {
                         float lat = LocationData.latitude;
                         float lon = LocationData.longitude;
                         String address = LocationData.address;
+                        String goodAddress = address.replaceAll("\n", "");
+
                         String img = "http://www.example.com/";
 
                         String str = "{\n" +
@@ -152,24 +154,23 @@ public class NewReviewFragment extends Fragment {
                                 "\"comment\" : \"" + comment + "\",\n" +
                                 "\"latitude\" : " + lat + ",\n" +
                                 "\"longitude\" : " + lon + ",\n" +
-                                "\"address\" : \"" + address + "\",\n" +
+                                "\"address\" : \"" + goodAddress + "\",\n" +
                                 "\"img_url\" : \"" + img + "\"\n" +
                                 "}";
 
                         Log.d("STR", str);
 
-//                        OutputStream os = conn.getOutputStream();
-//                        os.write(str.getBytes());
-//                        os.flush();
-//
-//                        BufferedReader br = new BufferedReader(new InputStreamReader(
-//                                (conn.getInputStream())));
-//
-//                        String output;
-//                        System.out.println("Output from Server .... \n");
-//                        while ((output = br.readLine()) != null) {
-//                            System.out.println(output);
-//                        }
+                        OutputStream os = conn.getOutputStream();
+                        os.write(str.getBytes());
+                        os.flush();
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+                        String output;
+                        System.out.println("Output from Server .... \n");
+                        while ((output = br.readLine()) != null) {
+                            System.out.println(output);
+                        }
 
                         conn.disconnect();
                     } catch (MalformedURLException e) {
