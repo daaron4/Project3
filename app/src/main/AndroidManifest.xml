@@ -28,13 +28,17 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/maps_manifest_name" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".Splash"
+            android:theme="@style/SplashPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".DetailView"></activity>
         <service
             android:name=".FetchAddressIntentService"
