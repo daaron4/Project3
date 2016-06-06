@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -20,6 +23,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -37,6 +42,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Location mLastLocation;
     private PagerAdapter pagerAdapter;
 
+    private static String ADDRESS_REQUESTED_KEY = "address-requested-pending";
+    private static String LOCATION_ADDRESS_KEY = "location-address";
+    private AddressResultReceiver mResultReceiver;
+    private String mLatitudeLabel, mLongitudeLabel, mAddressOutput;
+    private boolean mAddressRequested;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +57,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         setSupportActionBar(toolbar);
 
         buildGoogleApiClient();
-
-        //Establishing the Tabs on the tabLayout.
+        mLatitudeLabel = getResources().getString(R.string.latitude_label);
+        mLongitudeLabel = getResources().getString(R.string.longitude_label);
+        mAddressOutput = "";
+        mAddressRequested = true;
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Nearby"));
         tabLayout.addTab(tabLayout.newTab().setText("Add New Review"));
@@ -57,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         pagerAdapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+
+
+        mResultReceiver = new AddressResultReceiver(new Handler());
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -144,6 +161,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
+            if (!Geocoder.isPresent()) {
+                Toast.makeText(MainActivity.this, R.string.no_geocoder_available, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (mAddressRequested) {
+                startIntentService();
+            }
             double latDouble = mLastLocation.getLatitude();
             double longDouble = mLastLocation.getLongitude();
             float latitude = (float)latDouble;
@@ -158,12 +182,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnectionSuspended(int i) {
         mGoogleApiClient.connect();
-        //Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, R.string.connection_suspended, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, getString(R.string.connection_failed) + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -177,6 +201,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
+    public void fetchAddressButtonHandler() {
+        if (mGoogleApiClient.isConnected() && mLastLocation != null) {
+            startIntentService();
+        }
+        mAddressRequested = true;
+    }
+
+    protected void startIntentService() {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER, mResultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+        startService(intent);
+    }
+
     private void showNetworkNotAvailableNotification() {
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
         bigPictureStyle.bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.network_available_no)).build();
@@ -188,6 +226,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mBuilder.setStyle(bigPictureStyle);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIFICATION, mBuilder.build());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(ADDRESS_REQUESTED_KEY, mAddressRequested);
+        outState.putString(LOCATION_ADDRESS_KEY, mAddressOutput);
+        super.onSaveInstanceState(outState);
+    }
+
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            Toast.makeText(MainActivity.this, "It worked! " + mAddressOutput, Toast.LENGTH_LONG).show();
+            LocationData.address = mAddressOutput;
+            if (resultCode == Constants.SUCCESS_RESULT) {
+
+            }
+            mAddressRequested = false;
+        }
+    }
+
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (savedInstanceState.keySet().contains(ADDRESS_REQUESTED_KEY)) {
+                mAddressRequested = savedInstanceState.getBoolean(ADDRESS_REQUESTED_KEY);
+            }
+            if (savedInstanceState.keySet().contains(LOCATION_ADDRESS_KEY)) {
+                mAddressOutput = savedInstanceState.getString(LOCATION_ADDRESS_KEY);
+            }
+        }
     }
 
 }

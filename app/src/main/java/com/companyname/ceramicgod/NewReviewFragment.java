@@ -93,9 +93,8 @@ public class NewReviewFragment extends Fragment {
                     @Override
                     public void run() {
                         try {
-                            // ToDo: update tweet
                             String theTweet = "Location: " + locationName.getText().toString() + " Rating: " +
-                                    ratingBar.getRating() + " Address: address" + " #ceramicdodapp";
+                                    ratingBar.getRating() + " Address:" + LocationData.address + " #ceramicgodapp";
                             Status status = twitter.updateStatus(theTweet);
                             System.out.println("Successfully updated the status to [" + status.getText() + "].");
                         } catch(TwitterException e) {
@@ -143,7 +142,7 @@ public class NewReviewFragment extends Fragment {
                         String comment = userComments.getText().toString();
                         float lat = LocationData.latitude;
                         float lon = LocationData.longitude;
-                        String address = "address";
+                        String address = LocationData.address;
                         String img = "http://www.example.com/";
 
                         String str = "{\n" +
@@ -157,18 +156,20 @@ public class NewReviewFragment extends Fragment {
                                 "\"img_url\" : \"" + img + "\"\n" +
                                 "}";
 
-                        OutputStream os = conn.getOutputStream();
-                        os.write(str.getBytes());
-                        os.flush();
+                        Log.d("STR", str);
 
-                        BufferedReader br = new BufferedReader(new InputStreamReader(
-                                (conn.getInputStream())));
-
-                        String output;
-                        System.out.println("Output from Server .... \n");
-                        while ((output = br.readLine()) != null) {
-                            System.out.println(output);
-                        }
+//                        OutputStream os = conn.getOutputStream();
+//                        os.write(str.getBytes());
+//                        os.flush();
+//
+//                        BufferedReader br = new BufferedReader(new InputStreamReader(
+//                                (conn.getInputStream())));
+//
+//                        String output;
+//                        System.out.println("Output from Server .... \n");
+//                        while ((output = br.readLine()) != null) {
+//                            System.out.println(output);
+//                        }
 
                         conn.disconnect();
                     } catch (MalformedURLException e) {

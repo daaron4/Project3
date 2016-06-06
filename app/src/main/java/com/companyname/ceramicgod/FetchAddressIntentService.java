@@ -85,6 +85,7 @@ public class FetchAddressIntentService extends IntentService{
     private void deliverResultToReceiver(int resultCode, String message) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.RESULT_DATA_KEY, message);
+        LocationData.address = message;
         mReceiver.send(resultCode, bundle);
     }
 }
