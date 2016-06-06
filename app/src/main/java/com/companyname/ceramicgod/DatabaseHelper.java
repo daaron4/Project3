@@ -138,6 +138,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(REVIEWS_TABLE, selection, selectionArgs);
     }
 
+    public void deleteAllReviews() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(REVIEWS_TABLE, null, null);
+    }
+
     public long insertApiReview(ContentValues values) {
         SQLiteDatabase db = getWritableDatabase();
         long insertedRow = db.insert(REVIEWS_TABLE, null, values);
