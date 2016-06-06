@@ -21,12 +21,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 currentFragment = new NearbyFragment();
                 return currentFragment;
             case 1:
-                currentFragment = new PinnableMapFragment();
-                return currentFragment;
-            case 2:
                 currentFragment = new NewReviewFragment();
                 return currentFragment;
-            case 3:
+            case 2:
                 currentFragment = new ToiletFragment();
                 return currentFragment;
             default:

@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         //Establishing the Tabs on the tabLayout.
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Nearby"));
-        tabLayout.addTab(tabLayout.newTab().setText("Map"));
         tabLayout.addTab(tabLayout.newTab().setText("Add New Review"));
         tabLayout.addTab(tabLayout.newTab().setText("Photo"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

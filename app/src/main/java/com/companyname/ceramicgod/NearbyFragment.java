@@ -15,10 +15,12 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -42,6 +44,14 @@ public class NearbyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
 
         mAccount = createSyncAccount(getContext());
+        Button maps = (Button) view.findViewById(R.id.go_to_maps);
+        maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(),MapsActivity.class);
+                startActivity(i);
+            }
+        });
 
         Cursor cursor = getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null);
         cursorAdapter = new CursorAdapter(getContext(), cursor, 0) {
@@ -89,6 +99,7 @@ public class NearbyFragment extends Fragment {
                 startActivity(detailIntent);
             }
         });
+
 
         getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
 
@@ -155,7 +166,11 @@ public class NearbyFragment extends Fragment {
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-            cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            try {
+                cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+            } catch (NullPointerException e) {
+                Log.d("BAD", "NOOOOOOO");
+            }
         }
     }
 }
