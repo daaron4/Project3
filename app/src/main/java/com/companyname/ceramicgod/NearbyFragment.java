@@ -43,16 +43,15 @@ public class NearbyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nearby, container, false);
 
-        Button button = (Button) view.findViewById(R.id.mapButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        mAccount = createSyncAccount(getContext());
+        Button maps = (Button) view.findViewById(R.id.go_to_maps);
+        maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(),MapsActivity.class);
                 startActivity(i);
             }
         });
-
-        mAccount = createSyncAccount(getContext());
 
         Cursor cursor = getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null);
         cursorAdapter = new CursorAdapter(getContext(), cursor, 0) {
@@ -101,23 +100,25 @@ public class NearbyFragment extends Fragment {
             }
         });
 
-        getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
+        if (RandomData.doThisOnce) {
+            getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
 
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+            Bundle settingsBundle = new Bundle();
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
-        ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
+            ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
 
-//        ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
-//        ContentResolver.addPeriodicSync(
-//                mAccount,
-//                AUTHORITY,
-//                Bundle.EMPTY,
-//                60);
-
+            ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
+            ContentResolver.addPeriodicSync(
+                    mAccount,
+                    AUTHORITY,
+                    Bundle.EMPTY,
+                    60);
+            RandomData.doThisOnce = false;
+        }
         return view;
     }
 
@@ -168,8 +169,9 @@ public class NearbyFragment extends Fragment {
         public void onChange(boolean selfChange, Uri uri) {
             try {
                 cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+
             } catch (NullPointerException e) {
-                Log.d(":(", "fixing...");
+                Log.d("BAD", "NOOOOOOO");
             }
         }
     }

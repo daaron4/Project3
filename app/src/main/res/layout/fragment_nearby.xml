@@ -9,17 +9,17 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <Button
-        android:id="@+id/mapButton"
+        android:id="@+id/go_to_maps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Map View" />
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:text="Maps" />
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </ListView>
 
 </LinearLayout>

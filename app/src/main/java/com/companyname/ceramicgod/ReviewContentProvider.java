@@ -74,19 +74,17 @@ public class ReviewContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-//        int uriType = sURIMatcher.match(uri);
-//        int rowsDeleted = 0;
-//
-//        switch (uriType) {
-//            case ARTICLES:
-//                rowsDeleted = myDB.deleteAllArticles();
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Unknown URI: " + uri);
-//        }
-//        getContext().getContentResolver().notifyChange(uri, null);
-//        return rowsDeleted;
-        return 0;
+        int uriType = sURIMatcher.match(uri);
+        int rowsDeleted = 0;
+        switch (uriType) {
+            case ALL_REVIEWS:
+                DatabaseHelper.getInstance(getContext()).deleteAllReviews();
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     public int update(

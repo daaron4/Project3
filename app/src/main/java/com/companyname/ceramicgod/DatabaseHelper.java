@@ -3,7 +3,6 @@ package com.companyname.ceramicgod;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -136,6 +135,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String.valueOf(index)
         };
         db.delete(REVIEWS_TABLE, selection, selectionArgs);
+    }
+
+    public void deleteAllReviews() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(REVIEWS_TABLE, null, null);
     }
 
     public long insertApiReview(ContentValues values) {

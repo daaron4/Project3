@@ -51,7 +51,7 @@ public class DetailView extends AppCompatActivity {
 
         float lat = detailViewCursor.getFloat(detailViewCursor.getColumnIndex(DatabaseHelper.COL_LATITUDE));
         float lon = detailViewCursor.getFloat(detailViewCursor.getColumnIndex(DatabaseHelper.COL_LONGITUDE));
-        mAddressTextView.setText("Lat: " + lat + " Long: " + lon);
+//        mAddressTextView.setText("Lat: " + lat + " Long: " + lon);
     }
 
     private Bitmap getPic(String filePath) {
