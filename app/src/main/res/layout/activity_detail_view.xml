@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,55 +9,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.companyname.ceramicgod.DetailView">
 
-    <ImageView
-        android:id="@+id/detailImageView"
-        android:layout_width="@dimen/image_view_layout"
-        android:layout_height="@dimen/image_view_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/image_view_margin_top"
-        android:background="@android:drawable/ic_lock_lock" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/detailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detailImageView"
-        android:layout_centerHorizontal="true"
-        android:text="@string/textview_detailview" />
+        <ImageView
+            android:id="@+id/detailImageView"
+            android:layout_width="@dimen/image_view_layout"
+            android:layout_height="@dimen/image_view_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/image_view_margin_top"
+            android:background="@android:drawable/ic_lock_lock" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detailTextView"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="@dimen/rating_bar_margin_top"
-        android:isIndicator="true"/>
+        <TextView
+            android:id="@+id/detailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailImageView"
+            android:layout_centerHorizontal="true"
+            android:text="@string/textview_detailview" />
 
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ratingBar"
-        android:layout_centerHorizontal="true"
-        android:text="@string/sample_address" />
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailTextView"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/rating_bar_margin_top"
+            android:isIndicator="true"/>
 
-    <TextView
-        android:id="@+id/commentSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/address"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/rating_bar_margin_top"
-        android:text="@string/comments_text" />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ratingBar"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sample_address" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/commentSection"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/rating_bar_margin_top"
-        android:text="Date" />
+        <TextView
+            android:id="@+id/commentSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/rating_bar_margin_top"
+            android:text="@string/comments_text" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/commentSection"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/rating_bar_margin_top"
+            android:text="Date" />
+
+    </RelativeLayout>
+
+</ScrollView>
