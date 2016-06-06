@@ -155,6 +155,11 @@ public class NewReviewFragment extends Fragment {
                                 "\"img_url\" : \"" + img + "\"\n" +
                                 "}";
 
+//                        String header = conn.getHeaderField("Server");
+//                        String data = conn.getHeaderField("null");
+//                        Log.d("HEY", header);
+//                        Log.d("HEY2", data);
+
                         OutputStream os = conn.getOutputStream();
                         os.write(str.getBytes());
                         os.flush();
