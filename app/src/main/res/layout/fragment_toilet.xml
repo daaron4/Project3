@@ -41,5 +41,5 @@
             android:layout_below="@+id/toilet_sign_title"/>
 
     </RelativeLayout>
-    
+
 </ScrollView>
