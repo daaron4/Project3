@@ -168,7 +168,8 @@ public class NearbyFragment extends Fragment {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             try {
-                cursorAdapter.changeCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+                cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+
             } catch (NullPointerException e) {
                 Log.d("BAD", "NOOOOOOO");
             }
