@@ -130,7 +130,7 @@ public class NewReviewFragment extends Fragment {
             Thread thread = new Thread() {
                 public void run() {
                     try {
-                        URL url = new URL("http://nameless-bayou-62702.herokuapp.com/reviews");
+                        URL url = new URL("http://nameless-bayou-62702.herokuapp.com/reviews.json");
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setDoOutput(true);
                         conn.setRequestMethod("POST");
@@ -157,7 +157,6 @@ public class NewReviewFragment extends Fragment {
                                 "\"address\" : \"" + goodAddress + "\",\n" +
                                 "\"img_url\" : \"" + img + "\"\n" +
                                 "}";
-
                         Log.d("STR", str);
 
                         OutputStream os = conn.getOutputStream();
