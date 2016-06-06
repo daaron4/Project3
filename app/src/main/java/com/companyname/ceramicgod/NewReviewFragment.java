@@ -94,7 +94,9 @@ public class NewReviewFragment extends Fragment {
                     public void run() {
                         try {
                             // ToDo: update tweet
-                            Status status = twitter.updateStatus(locationName.getText().toString());
+                            String theTweet = "Location: " + locationName.getText().toString() + " Rating: " +
+                                    ratingBar.getRating() + " Address: address" + " #ceramicdodapp";
+                            Status status = twitter.updateStatus(theTweet);
                             System.out.println("Successfully updated the status to [" + status.getText() + "].");
                         } catch(TwitterException e) {
                             e.printStackTrace();

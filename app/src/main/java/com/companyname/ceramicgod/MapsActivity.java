@@ -77,14 +77,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng current = new LatLng(lat, lon);
             mMap.addMarker(new MarkerOptions().position(current));
         }
-        LatLng santaMonica = new LatLng(34.02, -118.49);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(santaMonica));
+        LatLng currentLocation = new LatLng(LocationData.latitude, LocationData.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
         //Gives the default view of the map to a closer location.
         //Target sets the default location.
         //Zoom of 15 allows user to see by streets. BUT it limits the view. Will come back to.
         //Need to implement onItemClickListener to any parts of the map to allow for additional zooming options.
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(santaMonica)
+                .target(currentLocation)
                 .zoom(17)
                 .tilt(0)
                 .bearing(0)

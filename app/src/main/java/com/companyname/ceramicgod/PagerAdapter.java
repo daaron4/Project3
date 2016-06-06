@@ -23,7 +23,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 currentFragment = new NewReviewFragment();
                 return currentFragment;
-            case 2:
+            case 5:
                 currentFragment = new ToiletFragment();
                 return currentFragment;
             default:

@@ -100,24 +100,25 @@ public class NearbyFragment extends Fragment {
             }
         });
 
+        if (RandomData.doThisOnce) {
+            getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
 
-        getContext().getContentResolver().registerContentObserver(ReviewContentProvider.CONTENT_URI, true, new ReviewsContentObserver(new Handler()));
+            Bundle settingsBundle = new Bundle();
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            settingsBundle.putBoolean(
+                    ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+            ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
 
-        ContentResolver.requestSync(mAccount, AUTHORITY, settingsBundle);
-
-//        ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
-//        ContentResolver.addPeriodicSync(
-//                mAccount,
-//                AUTHORITY,
-//                Bundle.EMPTY,
-//                60);
-
+            ContentResolver.setSyncAutomatically(mAccount, AUTHORITY, true);
+            ContentResolver.addPeriodicSync(
+                    mAccount,
+                    AUTHORITY,
+                    Bundle.EMPTY,
+                    60);
+            RandomData.doThisOnce = false;
+        }
         return view;
     }
 
@@ -167,7 +168,7 @@ public class NearbyFragment extends Fragment {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             try {
-                cursorAdapter.swapCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
+                cursorAdapter.changeCursor(getContext().getContentResolver().query(ReviewContentProvider.CONTENT_URI, null, null, null, null));
             } catch (NullPointerException e) {
                 Log.d("BAD", "NOOOOOOO");
             }

@@ -87,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     public void handleCallback(String response) {
-        Fragment toiletFragment = (Fragment) pagerAdapter.getCurrentFragment();
-        if (toiletFragment != null && toiletFragment instanceof ToiletFragment) {
-            ((ToiletFragment)toiletFragment).handleCallback(response);
+        Fragment currentFragment = pagerAdapter.getCurrentFragment();
+        if (currentFragment != null && currentFragment instanceof ToiletFragment) {
+            ((ToiletFragment)currentFragment).handleCallback(response);
             //toiletFragment.placeImageToilet(response);
         }
     }
